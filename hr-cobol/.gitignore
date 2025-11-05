@@ -1,0 +1,23 @@
+# HR-COBOL Generated Files
+
+# Build artifacts
+bin/
+
+# Runtime data files
+data/*.dat
+data/*.log
+data/temp.*
+
+# Backup files
+*.bak
+*~
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db

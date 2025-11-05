@@ -1,0 +1,33 @@
+******************************************************************
+      * RULE-DEF.CPY - Business rule definition structure
+      * Purpose: Table-driven business rules definition
+      ******************************************************************
+           05  RULE-ID             PIC X(20).
+           05  RULE-TYPE           PIC X(20).
+           05  RULE-DESCR          PIC X(100).
+           05  EFFECTIVE-FROM      PIC 9(8).
+           05  EFFECTIVE-TO        PIC 9(8) VALUE 99991231.
+           05  RULE-VERSION        PIC 9(3)  VALUE 1.
+           05  LOGIC-TYPE          PIC X.
+               88  LOGIC-TABLE         VALUE 'T'.
+               88  LOGIC-FORMULA       VALUE 'F'.
+               88  LOGIC-BRACKET       VALUE 'B'.
+               88  LOGIC-RATE          VALUE 'R'.
+           05  RULE-PARAMS         OCCURS 10 TIMES.
+               10  PARAM-NAME      PIC X(20).
+               10  PARAM-TYPE      PIC X.
+                   88  PARAM-NUMERIC   VALUE 'N'.
+                   88  PARAM-CHAR      VALUE 'C'.
+                   88  PARAM-DATE      VALUE 'D'.
+               10  PARAM-VALUE-N   PIC S9(15)V99.
+               10  PARAM-VALUE-C   PIC X(50).
+           05  RULE-TABLE          OCCURS 20 TIMES.
+               10  RANGE-FROM      PIC S9(15)V99.
+               10  RANGE-TO        PIC S9(15)V99.
+               10  RATE            PIC 9V9(6).
+               10  FIXED-AMT       PIC S9(11)V99.
+           05  CREATED-BY          PIC X(8).
+           05  CREATED-AT          PIC 9(14).
+           05  MODIFIED-BY         PIC X(8).
+           05  MODIFIED-AT         PIC 9(14).
+           05  FILLER              PIC X(100) VALUE SPACES.

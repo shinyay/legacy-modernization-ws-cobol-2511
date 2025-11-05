@@ -1,0 +1,45 @@
+{
+    "name": "COBOL Development Environment",
+    "dockerComposeFile": "compose.yaml",
+    "service": "cobol",
+    "workspaceFolder": "/workspace",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "bitlang.cobol",
+                "streetsidesoftware.code-spell-checker",
+                "broadcom.cobol-language-support",
+                "kainino.backgroundcopy",
+                "ms-vscode.makefile-tools"
+            ],
+            "settings": {
+                "terminal.integrated.defaultProfile.linux": "bash",
+                "editor.rulers": [6, 7, 72],
+                "editor.tabSize": 1,
+                "editor.insertSpaces": true,
+                "editor.detectIndentation": false,
+                "files.eol": "\n",
+                "[cobol]": {
+                    "editor.wordBasedSuggestions": "off",
+                    "editor.semanticHighlighting.enabled": true,
+                    "editor.formatOnType": true,
+                    "editor.formatOnPaste": true,
+                    "editor.formatOnSave": true,
+                    "editor.renderWhitespace": "all",
+                    "editor.rulers": [6, 7, 11, 72],
+                    "files.trimTrailingWhitespace": false
+                },
+                "coboleditor.preserve_additional_spaces": true,
+                "coboleditor.format.indicate_paragraph": true,
+                "coboleditor.format.align_data_division": true,
+                "coboleditor.format.init_program_division": true,
+                "coboleditor.format.init_division": true,
+                "coboleditor.format_on_save": true,
+                "coboleditor.maintain_sequence_numbers": false,
+                "coboleditor.sourceformat": "fixed"
+            }
+        }
+    },
+    "remoteUser": "vscode",
+    "postCreateCommand": "cobc --version && echo 'COBOL Environment Ready'"
+}

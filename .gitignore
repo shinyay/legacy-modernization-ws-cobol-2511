@@ -1,0 +1,23 @@
+# Build directory
+bin/
+hr-cobol/bin/
+
+# Compiled COBOL files
+*.so
+*.dll
+*.exe
+
+# Data files (exclude runtime data, keep sample data)
+hr-cobol/data/*.dat
+hr-cobol/data/*.csv
+!hr-cobol/data/sample/*.csv
+
+# OS specific files
+.DS_Store
+Thumbs.db
+
+# Editor specific files
+.vscode/*
+!.vscode/tasks.json
+!.vscode/extensions.json
+!.vscode/settings.json

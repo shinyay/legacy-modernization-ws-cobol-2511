@@ -1,0 +1,49 @@
+      ******************************************************************
+      * PAYROLL.CPY - Payroll record structure
+      * Purpose: Employee payroll base and components
+      * Pre: Constants defined in calling program
+      * Post: Complete payroll structure with ODO components
+      *
+      * Version Fields:
+      * - RECORD-VERSION: Schema/copybook version (backward compatibility)
+      * - REC-VERSION: Optimistic concurrency control (update detection)
+      ******************************************************************
+           05  RECORD-VERSION      PIC 9(2)  VALUE 1.
+           05  REC-VERSION         PIC 9(9)  VALUE 1.
+           05  PAY-ID              PIC 9(12).
+           05  EMP-ID              PIC 9(9).
+           05  PAY-PERIOD          PIC 9(6).
+           05  PAY-DATE            PIC 9(8).
+           05  CURRENCY            PIC X(3)  VALUE 'JPY'.
+           05  BASE-SALARY         PIC S9(11)V99.
+           05  COMPONENT-COUNT     PIC 9(2)  VALUE 0.
+           05  FILLER              OCCURS 20 TIMES.
+               10  COMP-CODE       PIC X(10).
+               10  COMP-TYPE       PIC X.
+                   88  COMP-ALLOWANCE   VALUE 'A'.
+                   88  COMP-DEDUCTION   VALUE 'D'.
+                   88  COMP-OVERTIME    VALUE 'O'.
+                   88  COMP-TAX         VALUE 'T'.
+                   88  COMP-SOCIAL      VALUE 'S'.
+                   88  COMP-BONUS       VALUE 'B'.
+               10  COMP-AMOUNT     PIC S9(11)V99.
+               10  COMP-CURRENCY   PIC X(3).
+               10  FILLER-COMP     PIC X(2).
+           05  GROSS-PAY           PIC S9(11)V99.
+           05  TOTAL-DEDUCTIONS    PIC S9(11)V99.
+           05  NET-PAY             PIC S9(11)V99.
+           05  PAY-STATUS          PIC X.
+               88  PAY-DRAFT           VALUE 'D'.
+               88  PAY-CALCULATED      VALUE 'C'.
+               88  PAY-APPROVED        VALUE 'A'.
+               88  PAY-PAID            VALUE 'P'.
+               88  PAY-VOIDED          VALUE 'V'.
+               88  PAY-CLOSED          VALUE 'X'.
+           05  CALC-TIMESTAMP      PIC 9(14).
+           05  APPROVED-BY         PIC X(8).
+           05  APPROVED-TIMESTAMP  PIC 9(14).
+           05  CREATED-BY          PIC X(8).
+           05  CREATED-AT          PIC 9(14).
+           05  MODIFIED-BY         PIC X(8).
+           05  MODIFIED-AT         PIC 9(14).
+           05  FILLER              PIC X(100) VALUE SPACES.

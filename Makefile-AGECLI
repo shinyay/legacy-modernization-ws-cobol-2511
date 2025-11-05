@@ -1,0 +1,31 @@
+# Makefile for AGECLI program
+
+# Compiler
+COBC = cobc
+# Compiler flags (AGECLI.cob does not use copybooks from src/copybooks)
+COBFLAGS = -x -free
+
+# Source and Binary directories (relative to workspace root)
+SRC_FILE = src/AGECLI.cob
+BIN_DIR = bin
+TARGET = $(BIN_DIR)/AGECLI
+
+# Ensure bin directory exists
+$(shell mkdir -p $(BIN_DIR))
+
+# Default target
+all: $(TARGET)
+
+# Rule to build AGECLI
+$(TARGET): $(SRC_FILE)
+	$(COBC) $(COBFLAGS) -o $@ $<
+
+# Run the AGECLI program
+run: $(TARGET)
+	$(TARGET)
+
+# Clean build artifacts
+clean:
+	rm -f $(TARGET)
+
+.PHONY: all run clean

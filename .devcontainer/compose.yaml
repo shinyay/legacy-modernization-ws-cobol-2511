@@ -1,0 +1,13 @@
+services:
+  cobol:
+    hostname: devcontainer
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ..:/workspace:cached
+    command: sleep infinity
+    init: true
+    mem_limit: 1g
+    memswap_limit: 1g
+    cpu_shares: 1024

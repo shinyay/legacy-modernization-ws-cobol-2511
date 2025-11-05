@@ -1,0 +1,120 @@
+# Makefile for HR-COBOL Employee Management System
+
+# Compiler
+COBC = cobc
+# Compiler flags
+COBFLAGS = -std=ibm -I hr-cobol/copy -ftext-column=132
+
+# Directories
+HR_SRC_DIR = hr-cobol/src
+HR_SVC_DIR = $(HR_SRC_DIR)/svc
+HR_UTIL_DIR = $(HR_SRC_DIR)/util
+HR_DAO_DIR = $(HR_SRC_DIR)/dao
+HR_BATCH_DIR = $(HR_SRC_DIR)/batch
+HR_BIN_DIR = hr-cobol/bin
+HR_COPY_DIR = hr-cobol/copy
+
+# Ensure bin directory exists
+$(shell mkdir -p $(HR_BIN_DIR))
+
+# Service source files
+HR_SVC_SOURCES = $(HR_SVC_DIR)/EMP-SVC.cbl \
+                 $(HR_SVC_DIR)/DEPT-SVC.cbl \
+                 $(HR_SVC_DIR)/SEQ-SVC.cbl \
+                 $(HR_SVC_DIR)/PAY-SVC.cbl \
+                 $(HR_SVC_DIR)/RULE-SVC.cbl
+
+# Utility source files
+HR_UTIL_SOURCES = $(HR_UTIL_DIR)/DATE-UTIL.cbl \
+                  $(HR_UTIL_DIR)/AUDIT-LOG.cbl \
+                  $(HR_UTIL_DIR)/ERR-UTIL.cbl
+
+# DAO source files
+HR_DAO_SOURCES = $(HR_DAO_DIR)/DAO-FILE.cbl
+
+# Batch programs
+HR_BATCH_SOURCES = $(HR_BATCH_DIR)/IMPEMP.cbl
+
+# Main programs
+HR_MAIN_SOURCES = $(HR_SRC_DIR)/HRMENU.cbl
+
+# All HR-COBOL programs
+HR_PROGRAMS = $(HR_BIN_DIR)/HRMENU \
+              $(HR_BIN_DIR)/EMP-SVC \
+              $(HR_BIN_DIR)/DEPT-SVC \
+              $(HR_BIN_DIR)/SEQ-SVC \
+              $(HR_BIN_DIR)/PAY-SVC \
+              $(HR_BIN_DIR)/RULE-SVC \
+              $(HR_BIN_DIR)/DATE-UTIL \
+              $(HR_BIN_DIR)/AUDIT-LOG \
+              $(HR_BIN_DIR)/ERR-UTIL \
+              $(HR_BIN_DIR)/DAO-FILE \
+              $(HR_BIN_DIR)/IMPEMP
+
+# Default target for HR-COBOL
+hr-cobol: $(HR_PROGRAMS)
+
+# Build main menu program
+$(HR_BIN_DIR)/HRMENU: $(HR_SRC_DIR)/HRMENU.cbl
+	$(COBC) -x $(COBFLAGS) -o $@ $<
+
+# Build EMP-SVC service
+$(HR_BIN_DIR)/EMP-SVC: $(HR_SVC_DIR)/EMP-SVC.cbl
+	$(COBC) $(COBFLAGS) -o $@ $<
+
+# Build DEPT-SVC service
+$(HR_BIN_DIR)/DEPT-SVC: $(HR_SVC_DIR)/DEPT-SVC.cbl
+	$(COBC) $(COBFLAGS) -o $@ $<
+
+# Build SEQ-SVC service
+$(HR_BIN_DIR)/SEQ-SVC: $(HR_SVC_DIR)/SEQ-SVC.cbl
+	$(COBC) $(COBFLAGS) -o $@ $<
+
+# Build PAY-SVC service
+$(HR_BIN_DIR)/PAY-SVC: $(HR_SVC_DIR)/PAY-SVC.cbl
+	$(COBC) $(COBFLAGS) -o $@ $<
+
+# Build RULE-SVC service
+$(HR_BIN_DIR)/RULE-SVC: $(HR_SVC_DIR)/RULE-SVC.cbl
+	$(COBC) $(COBFLAGS) -o $@ $<
+
+# Build DATE-UTIL utility
+$(HR_BIN_DIR)/DATE-UTIL: $(HR_UTIL_DIR)/DATE-UTIL.cbl
+	$(COBC) $(COBFLAGS) -o $@ $<
+
+# Build AUDIT-LOG utility
+$(HR_BIN_DIR)/AUDIT-LOG: $(HR_UTIL_DIR)/AUDIT-LOG.cbl
+	$(COBC) $(COBFLAGS) -o $@ $<
+
+# Build ERR-UTIL utility
+$(HR_BIN_DIR)/ERR-UTIL: $(HR_UTIL_DIR)/ERR-UTIL.cbl
+	$(COBC) $(COBFLAGS) -o $@ $<
+
+# Build DAO-FILE data access layer
+$(HR_BIN_DIR)/DAO-FILE: $(HR_DAO_DIR)/DAO-FILE.cbl
+	$(COBC) $(COBFLAGS) -o $@ $<
+
+# Build IMPEMP batch import program
+$(HR_BIN_DIR)/IMPEMP: $(HR_BATCH_DIR)/IMPEMP.cbl
+	$(COBC) -x $(COBFLAGS) -o $@ $<
+
+# Run the HR-COBOL menu system
+run-hr: hr-cobol
+	cd $(HR_BIN_DIR) && ./HRMENU
+
+# Run the employee import batch program
+import-hr: hr-cobol
+	cd $(HR_BIN_DIR) && ./IMPEMP
+
+# Clean HR-COBOL build artifacts
+clean-hr:
+	rm -rf $(HR_BIN_DIR)/*
+	rm -f hr-cobol/data/import/employees.log
+	rm -f hr-cobol/data/import/employees.err
+
+# Test HR-COBOL
+test-hr: hr-cobol
+	@echo "Testing HR-COBOL system..."
+	@echo "Tests not yet implemented"
+
+.PHONY: hr-cobol run-hr import-hr clean-hr test-hr
